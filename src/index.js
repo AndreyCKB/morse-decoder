@@ -39,6 +39,31 @@ const MORSE_TABLE = {
 
 function decode(expr) {
     // write your solution here
+    if ( expr.length % 10 ) throw 'Invalid string length';
+    
+    const result = [];
+    let currentSimbol;
+    const arrSimbols = [];
+
+    for(let i = 0; i <= expr.length; i += 2){
+        if (i % 10 == 0){
+            result.push( MORSE_TABLE[ arrSimbols.join('') ] );
+            arrSimbols.length = 0;
+        }
+
+        currentSimbol= expr[i] + expr[i+1];        
+        if (currentSimbol == '10'){
+            arrSimbols.push('.');
+        }else if(currentSimbol == '11'){
+            arrSimbols.push('-');
+        }else if (currentSimbol == '**'){
+            result.push(' ');
+            i += 8;
+        }
+        
+    }
+
+    return result.join('');
 }
 
 module.exports = {
